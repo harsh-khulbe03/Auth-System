@@ -33,10 +33,9 @@ exports.signUp = async (req, res) => {
 };
 
 exports.signIn = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
     // Check if user exists
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -49,8 +48,8 @@ exports.signIn = async (req, res) => {
     }
 
     // Generate JWT token
-
-    if (user.tokens.length > 1) {
+    console.log("user.tokens ki value: ", user.tokens);
+    if (user.tokens.length >= 1) {
       return res.json({
         message: "User cannot login from more than 1 device",
       });
